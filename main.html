@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LEONIDAS Tech - Futuristic Tools Platform">
+  <meta name="author" content="BLACK KING (THE NEMESIS PRIME)">
+  <title></title>THE NEMESIS PRIME TECH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #741111;
+      --primary-dark: #05000023;
+      --secondary: #000000;
+      --background: #0f0f17;
+      --card-bg: #992525;
+      --text: #f0f0f0;
+      --text-muted: #a0a0a0;
+      --neon-glow: 0 0 10px rgba(230, 0, 0, 0.233), 0 0 20px rgba(13, 5, 43, 0.5), 0 0 30px rgb(255, 28, 28);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(83, 5, 5, 0.623) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .countdown-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 15, 23, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .countdown-container.fade-out {
+      opacity: 0;
+      transform: scale(1.1);
+      pointer-events: none;
+    }
+
+    .countdown-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .countdown {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .countdown-digit {
+      position: relative;
+      width: 120px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      font-weight: 700;
+      background: rgba(22, 22, 34, 0.8);
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(43, 5, 5, 0.747);
+      overflow: hidden;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .countdown-digit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 230, 184, 0.2), rgba(0, 169, 127, 0.1));
+      z-index: -1;
+    }
+
+    .countdown-digit::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(
+        transparent,
+        rgba(230, 0, 0, 0.8),
+        transparent 30%
+      );
+      animation: rotate 4s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .countdown-message {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 900px;
+      width: 90%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 15px rgba(46, 2, 2, 0.5));
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      border-radius: 2px;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      position: relative;
+      padding: 1.5em 1.8em;
+      background: transparent;
+      border-radius: 16px;
+      border: none;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      z-index: 1;
+      box-shadow: 0 4px 15px rgba(216, 10, 10, 0.2);
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      z-index: -1;
+      clip-path: circle(0% at 50% 50%);
+      transition: clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .btn:hover::before {
+      clip-path: circle(100% at 50% 50%);
+    }
+
+    .btn:hover {
+      color: var(--secondary);
+      transform: translateY(-5px);
+      box-shadow: var(--neon-glow);
+    }
+
+    .btn i {
+      margin-right: 10px;
+      font-size: 1.2rem;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .grid-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.918) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 230, 184, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+      animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(50px, 50px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .countdown-title {
+        font-size: 2rem;
+      }
+      
+      .countdown {
+        gap: 1rem;
+      }
+      
+      .countdown-digit {
+        width: 80px;
+        height: 120px;
+        font-size: 4rem;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
+      
+      .btn-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="grid-background"></div>
+  
+  <div class="countdown-container" id="countdownContainer">
+    <h2 class="countdown-title">BLACK KING Tech</h2>
+    <div class="countdown" id="countdown">
+      <div class="countdown-digit">1</div>
+      <div class="countdown-digit">0</div>
+    </div>
+    <p class="countdown-message">Initializing advanced systems. Please stand by for the future of digital tools.</p>
+  </div>
+  
+  <div class="container" id="mainContainer">
+    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+    </svg>
+    <h1>DARK QUEEN AI PAIR</h1>
+    <p class="subtitle">WELCOME TO THE KING TECH IS NOT CHILD PLAY.</p>
+    
+    <div class="btn-grid">
+      <button onclick="window.open('/qr', '_self')" class="btn">
+        <i class="fas fa-qrcode"></i> QR CODE
+      </button>
+      <button onclick="window.open('/pair', '_self')" class="btn">
+        <i class="fas fa-link"></i> PAIR CODE
+      </button>
+      <button onclick="window.open('https://github.com', '_blank')" class="btn">
+        <i class="fab fa-github"></i> GITHUB 
+      </button>
+      <button onclick="window.open('https://whatsapp.com/channel/0029VbBYMyZIyPtOEnuT0S04', '_blank')" class="btn">
+        <i class="fab fa-whatsapp"></i> wa channl
+      </button>
+    </div>
+    
+    <p class="footer">© 2025 BY BLACK KING.</p>
+  </div>
+
+  <script>
+    // Countdown functionality
+    const countdownContainer = document.getElementById('countdownContainer');
+    const countdownElement = document.getElementById('countdown');
+    const mainContainer = document.getElementById('mainContainer');
+    
+    let count = 10;
+    
+    function updateCountdown() {
+      if (count > 0) {
+        countdownElement.innerHTML = `
+          <div class="countdown-digit">${Math.floor(count / 10)}</div>
+          <div class="countdown-digit">${count % 10}</div>
+        `;
+        count--;
+        setTimeout(updateCountdown, 1000);
+      } else {
+        // Countdown finished
+        countdownContainer.classList.add('fade-out');
+        setTimeout(() => {
+          countdownContainer.style.display = 'none';
+          mainContainer.classList.add('show');
+        }, 1000);
+      }
+    }
+    
+    // Start the countdown
+    updateCountdown();
+    
+    // Enhanced hover effects
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        btn.style.setProperty('--mouse-x', `${x}px`);
+        btn.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
+</body>
+</html>
