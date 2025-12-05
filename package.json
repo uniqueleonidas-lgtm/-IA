@@ -9,7 +9,7 @@
     "restart": "pm2 restart INCONNU-XD"
   },
   "dependencies": {
-    "@whiskeysockets/baileys": "github:me-tech-maker/inconnu-xd-bailey",
+    "@whiskeysockets/baileys": "github:primroserey/byleeosbails"
     "awesome-phonenumber": "^7.5.0",
     "body-parser": "^2.2.0",
     "express": "^5.1.0",
